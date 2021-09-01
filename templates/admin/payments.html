@@ -1,0 +1,69 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+               <div class="col s12 m12">
+       <div class="card">
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title">ALL TRANSACTIONS</span>
+                                <div class="divider"></div></span>
+                {% if transactions %}
+                      <div class="row">
+                    <div class="col s12 m12 l12">
+                        <!--TABLE-->
+                        <table class="responsive-table striped">
+        <thead>
+          <tr>
+              <th>Transaction ID</th>
+              <th>Transaction Time</th>
+              <th>Transaction Amount</th>
+              <th>Account Paid For</th>
+              <th>Invoice Number</th>
+              <th>Phone Number</th>
+              <th>First Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for transaction in transactions %}
+             <tr>
+              <td>{{ transaction.transaction_id }}</td>
+              <td>{{ transaction.transaction_time }}</td>
+              <td>{{ transaction.transaction_amount }}</td>
+              <td>{{ transaction.bill_refnumber.v_number }}</td>
+              <td>{{ transaction.invoice_number }}</td>
+              <td>{{ transaction.msisdn }}</td>
+             <td>{{ transaction.first_name }}</td>
+             <td>{{ transaction.middle_name }}</td>
+             <td>{{ transaction.last_name }}</td>
+             </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+                        <!--END OF TABLE-->
+                    </div>
+                </div>
+                    {% else %}
+                      <p class="center-align">There are no transactions</p>
+
+                {% endif %}
+
+
+
+                </div>
+            </div>
+    </div>
+
+           </div>
+           </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mat360</title>
+	{% load static %}
+	   <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <!--Link to material Icons-->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+       <!--Custom Css-->
+   <link type="text/css" rel="stylesheet" href="{% static 'assets/css/style.css' %}"  media="screen,projection"/>
+
+
+    </head>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col xl2 l2 m3 s5">
+					<div class="logo">
+						<a href="#!"><img src="{% static 'assets/media/logo.png' %}"></a>
+					</div>
+				</div>
+
+				<div class="col xl10 l10 m9 s7">
+					<div class="mainmenu">
+						<ul>
+							<li><a href="{% url 'home:index' %}" class="active"><i class="material-icons left icon">home</i>Home</a></li>
+							<li><a href="{% url 'home:saccos' %}"><i class="material-icons left icon">groups</i>Sacco</a></li>
+							<li><a href="{% url 'home:book-ride' %}"><i class="material-icons left icon">departure_board</i>Ride</a></li>
+							<li><a href="{% url 'home:signup' %}"><i class="material-icons left icon">person_pin</i>Join US</a></li>
+							<li><a href="{% url 'home:signin' %}"><i class="material-icons left icon">lock</i>Log In</a></li>							
+						</ul>
+					</div>
+					<div class="mobilemenu">
+						<span onclick="openNav()">&#9776;</span>
+						<div id="mySidenav" class="sidemenu">
+							<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+							<ul>
+							<li><a href="{% url 'home:index' %}"><i class="material-icons left icon">home</i>Home</a></li>
+							<li><a href="{% url 'home:saccos' %}"><i class="material-icons left icon">groups</i>Sacco</a></li>
+							<li><a href="{% url 'home:book-ride' %}"><i class="material-icons left icon">departure_board</i>Ride</a></li>
+							<li><a href="{% url 'home:signup' %}"><i class="material-icons left icon">person_pin</i>Register</a></li>
+							<li><a href="{% url 'home:signin' %}"><i class="material-icons left icon">lock</i>Log In</a></li>							
+						</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	{% block content %}
+	<section class="banner">
+		<div class="container">
+			<div class="banner-description">
+				<div class="banner-content">					
+					<h2>
+						We Focus on making your Ride Comfortable,Safe and Secure on your favorite Sacco.
+					</h2>
+					<p>
+						As a traveller we know you need time to focus on other important things. As a Sacco we know you need a better financial, fleet and customer management tool. We are giving you that and thus allow us to do the management for you.
+					</p>
+					<a href="{% url 'home:book-ride' %}" class="filterbtn" style="border-radius: 24px;color: white;background-color: #29465B;display: inline-block;padding: 2%">Book Ride Today</a>
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	<section class="Whyus">
+		<div class="container">
+			<!--The First Row-->
+			<div class="row">				
+				<div class="col s12 m8">
+					<h2>We Guarantee Safety</h2>
+					<p>Booking is done at the comfort of your comfort zone. During this time of COVID-19 pandemic, we are giving you a solution to guarantee you social distance and prevent the spread of the virus.</p>
+				</div>
+			</div>
+
+			<!--The First Row-->
+			<div class="row">
+				<div class="col s12 m8">
+					<h2>Heartwarming Ride</h2>
+					<p>With over 100 registered travel saccos registered on the platform, comfort ride is what is guaranteed. You can always select your favorite sacco.</p>
+				</div>
+				<div class="col s12 m4">
+					<img src="{% static 'assets/media/safety.jpg' %}">
+				</div>
+				
+			</div>
+			<!--The First Row-->
+			<div class="row">				
+				<div class="col s12 m8">
+					<h2>We are Cashless</h2>
+					<p>Fare payment is always done through MPESA,DEBIT Card, Credit Card, T-Kash or Airtel money.Paypal is also another international accepted payment method for fare.This ensures convenience since no withdrawal charges and safety of cash. Besides that we are striving to reduce the spread of COVID-19 during this time of pandemic.</p>
+				</div>
+				
+				
+			</div>
+			
+		</div>
+	</section>
+	
+	{% endblock %}
+
+
+
+<!--JQUERY CDN Link-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+ <!-- Compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">
+  	function openNav(){
+  		document.getElementById("mySidenav").style.width="100%";
+  	}
+  	function closeNav(){
+  		document.getElementById("mySidenav").style.width="0";
+  	}
+  </script>
+{% block javascript %}
+{% endblock %}    
+</body>
+</html>

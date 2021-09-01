@@ -1,0 +1,53 @@
+
+.custom-body{
+     background-image: url("../media/texture.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.custom-card{
+     background-image: url("../media/texture.jpg");
+    margin-top: 20px;
+
+}
+.custom-input{
+    border: 0px;
+    background-color: white;
+
+
+}
+.custom-input:focus{
+    border: 1px solid deeppink;
+    background: deeppink;
+    color: white;
+}
+.custom-btn{
+    background-color: deeppink;
+    border: 1px solid deeppink;
+    color: white;
+    border-radius: 50px;
+}
+.custom-btn:hover{
+    background-color: white;
+    color: deeppink;
+    border: 0.5px solid deeppink;
+
+
+}
+.customize-jumbo{
+    background-image: url("../media/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat:no-repeat;
+}
+.ride-card{
+    background-image: url("../media/seats.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+.mat360-btn-rides{
+    background-color: blacl;
+
+}

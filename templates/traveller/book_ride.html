@@ -1,0 +1,231 @@
+{% extends 'traveller/traveller_base.html' %}
+{% block content %}
+<div id="main">
+       <div class="container">
+        <div class="row">
+       <div class="col s12 m6 offset-m3">
+           <div class="card">
+               <div class="card-content">
+                   <div class="row">
+                       <div class="col s12 m12">
+                           <h6 class="center-align purple-text">FILL YOUR RIDE DETAILS BELOW</h6>
+                       </div>
+                   </div>
+                   <!--ROW2-->
+                   <form method="post" action="">
+                       {% csrf_token %}
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                            <select class="browser-default" id="departure" name="departure">
+                            <option value="" disabled selected>SELECT DEPARTING STATION</option>
+                                {% for station in stations %}
+                                     <option value="{{ station }}">{{ station }}</option>
+                                {% endfor %}
+                          </select>
+                       </div>
+                       <div class="input-field col s12 m6">
+                            <select class="browser-default" id="destination" name="destination">
+                            <option value="" disabled selected>SELECT DESTINATION STATION</option>
+                                {% for station in stations %}
+                                     <option value="{{ station }}">{{ station }}</option>
+                                {% endfor %}
+                          </select>
+
+                       </div>
+                   </div>
+
+                   <!--ROW3-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <select class="browser-default" id="saccoName" name="saccoName" >
+                            <option value="" disabled selected>CHOOSE SACCO</option>
+                          </select>
+
+                       </div>
+                       <div class="input-field col s12 m6">
+                            <select class="browser-default" id="rideNumber" name="rideNumber">
+                            <option value="" disabled selected>CHOOSE VEHICLE NUMBER</option>
+                          </select>
+                       </div>
+                   </div>
+
+                    <!--ROW4-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <input type="text" placeholder="VEHICLE CAPACITY" class="validate" required id="totalSeats" name="totalSeats">
+                       </div>
+                       <div class="input-field col s12 m6">
+                           <input type="text" placeholder="ACTIVE FARE" class="validate" required id="activeFare" name="amount">
+                       </div>
+                   </div>
+                    <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <input type="text" placeholder="ACTIVE BOOKINGS" class="validate"  required id="activeBookings"  name="activeBookings">
+                       </div>
+
+                   </div>
+                    <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6 offset-m3">
+                           <button type="submit" class="btn btn-block mat360-btn">Pay Your Ride</button>
+                       </div>
+
+                   </div>
+
+                       </form>
+
+               </div>
+           </div>
+       </div>
+    </div>
+       <!--At Home Page End-->
+       </div>
+</div>
+
+
+    <!--JAVASCRIPT-->
+   {% block javascript %}
+   <script>
+           $(document).ready(function () {
+               //Detect change in the destination
+               $('#destination').change(function () {
+
+              var departure = $("#departure").val();
+              var destination = $(this).val();
+             if (departure == ''){
+                 alert('Please fill in your departure Town to Proceed')
+             }
+             else {
+                  $.ajax({
+                     url:"{% url 'home:check-saccos' %}",
+                     data:{
+                         'departure':departure,
+                         'destination':destination,
+                     },
+                     dataType: 'json',
+                     success:function (result) {
+                         $("#saccoName option").remove();
+                             InitName='CHOOSE SACCO';
+                             InitValue='NULL';
+                             $("#saccoName").append(new Option(InitName,InitValue));
+
+                         for (var i = result.length - 1; i >= 0; i--) {
+                             saccoName=result[i].name;
+                             saccoRegNo=result[i].regnumber;
+                             $("#saccoName").append(new Option(saccoName,saccoRegNo));
+                                    //$("#saccoName").append('<option >'+ result[i].name +'</option>');
+                                };
+
+
+                     },
+
+                 })
+             }
+
+
+
+
+
+
+
+
+
+
+        })
+               //Detect change in the value of Sacco to list all the rides;
+               //This is the function to detect on change in the select of saccos.
+         $('#saccoName').change(function () {
+               var sacco=$(this).children("option:selected").val();
+              var departure = $("#departure").val();
+              var destination = $("#destination").val();
+             $.ajax({
+                 url:"{% url 'home:listrides' %}",
+                 data:{
+                     'sacco':sacco,
+                     'departure':departure,
+                     'destination':destination,
+                 },
+                 dataType: 'json',
+                 success:function (result) {
+                     $("#rideNumber option").remove();
+                             InitName='CHOOSE VEHICLE NUMBER';
+                             InitValue='NULL';
+                             $("#rideNumber").append(new Option(InitName,InitValue));
+                     for (var i = result.length - 1; i >= 0; i--) {
+                                vehicleNumber=result[i].vnumber
+                                $("#rideNumber").append(new Option(vehicleNumber,vehicleNumber));
+                            };
+
+
+                 }
+
+             })       });
+               //On focus of the sacco name
+                 $('#saccoName').click(function () {
+
+              var departure = $("#departure").val();
+              var destination = $("#destination").val();
+                  $.ajax({
+                     url:"{% url 'home:check-saccos' %}",
+                     data:{
+                         'departure':departure,
+                         'destination':destination,
+                     },
+                     dataType: 'json',
+                     success:function (result) {
+                         if(result.length<1){
+                             alert("SORRY. There is no sacco registered in our platform operating in the specified route.")
+
+                         }
+
+
+
+
+
+                     },
+
+                 })
+
+
+
+
+
+
+
+
+
+
+
+        })
+               //This is function to fill vehicle details
+                $('#rideNumber').change(function () {
+             var departure = $("#departure").val();
+             var destination = $("#destination").val();
+             var ride=$(this).children("option:selected").val()
+              var sacco=$("#saccoName").children("option:selected").val()
+
+             $.ajax({
+                 url:"{% url 'home:rideimportantdetails' %}",
+                 data:{
+                     'saccoreg':sacco,
+                     'vnumber':ride,
+                     'departure':departure,
+                     'destination':destination,
+                 },
+                 dataType: 'json',
+                 success:function (result) {
+                      $("#totalSeats").val(result[0].capacity);
+                      $("#activeFare").val(result[0].fareamount);
+                      $("#activeBookings").val(result[0].tbookings);
+
+                      //alert(JSON.stringify(result))
+
+                 }
+
+             })       });
+
+           })
+        </script>
+{% endblock %}
+{% endblock %}

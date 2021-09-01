@@ -1,0 +1,57 @@
+{% extends 'traveller/traveller_base.html' %}
+{% block content %}
+    <div id="main">
+       <div class="container">
+           <div class="row">
+               <div class="col s12">
+                   <div class="card">
+                       <div class="card-content">
+                          <span class="card-title center-align purple-text">MY RIDES</span>
+                           <p class="center-align black-text">
+                               All your rides booked through our system are listed below
+                           </p>
+                           <!--This is the transactions details table-->
+                           <div class="container">
+                               <div class="row">
+                                   <div class="col s12 m12">
+                                       <table class="responsive-table">
+        <thead>
+          <tr>
+              <th>#NO</th>
+              <th>Sacco Name</th>
+              <th>Vehicle Number</th>             
+              <th>Cost</th>
+              <th>Date Of Travel</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% if all_rides %}
+            {% for ride in all_rides %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ ride.bill_refnumber.sacco.sacco_name }}</td>
+            <td>{{ ride.bill_refnumber.v_number }}</td>         
+          <td>{{ ride.transaction_amount }}</td>
+           <td>{{ ride.transaction_time|date }}</td>
+          <td></td>
+          </tr>
+            {% endfor %}
+            {% else %}
+            <p class="red-text">You have no rides so far. Book More with our application</p>
+          {% endif %}
+        </tbody>
+      </table>
+                                   </div>
+                               </div>
+
+                           </div>
+
+
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
+    <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
+    <meta name="author" content="ThemeSelect">
+
+      {% load static %}
+    <title>Mat360|The leading public ridesharing application in Kenya</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- BEGIN: VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/vendors.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/animate.css' %}">
+    <!-- END: VENDOR CSS-->
+    <!-- BEGIN: Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/dashboard-modern.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/intro.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'controlled/css/main.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'assets/media/icon.ico' %}" type="image/x-icon"/>
+
+
+
+
+  </head>
+  <!-- END: Head-->
+<body class="container">
+  <!-- END: Footer-->
+    <script  src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+    <!-- BEGIN VENDOR JS-->
+    <script src="{% static 'controlled/js/vendors.min.js' %}"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="{% static 'controlled/jss/chart.min.js' %}"></script>
+    <!-- BEGIN THEME  JS-->
+    <script src="{% static 'controlled/js/plugins.min.js' %}"></script>
+    <script src="{% static 'controlled/js/search.min.js' %}"></script>
+    <script src="{% static 'controlled/js/customizer.min.js' %}"></script>
+    <!-- END THEME  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="{% static 'controlled/js/dashboard-modern.js' %}"></script>
+    <script src="{% static 'controlled/js/intro.min.js' %}"></script>
+    <!-- END PAGE LEVEL JS-->
+
+ {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:3000});</script>
+            {% elif message.tags == 'info'%}
+                <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:3000});</script>
+            {% elif message.tags == 'warning'%}
+                <script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:3000});</script>
+            {% elif message.tags == 'error'%}
+                <script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:3000});</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

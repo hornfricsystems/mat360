@@ -1,0 +1,114 @@
+{% extends 'sacco_manager/sacco_manager_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+               <div class="col s12 m6 offset-m2">
+       <div class="card">
+       {% if all_routes %}
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title">NEW VEHICLE REGISTRATION FORM</span>
+                                <div class="divider"></div></span>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="form">
+                     <form class="col s12" method="post" action="">
+                         {% csrf_token %}
+                         {% if messages %}
+                             {% for message in messages %}
+                                 <p class="center-align">{{ message }}</p>
+                             {% endfor %}
+                         {% endif %}
+      <div class="row">
+          <div class="input-field col s12">
+         {{ form.v_number }}
+          <label for="id_v_number">Vehicle Plate Number</label>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          {{ form.capacity }}
+          <label for="id_capacity">Vehicle Capacity</label>
+        </div>
+      </div>
+      <div class="row">
+           <div class="input-field col s12">
+
+    <select name="vehicle_route">
+      <option value="" disabled selected>CHOOSE ROUTE</option>
+        {% for route in all_routes %}
+             <option value="{{ route.id }}">{{ route.departure }}-{{ route.destination }}</option>
+        {% endfor %}
+
+    </select>
+    <label>Select Vehicle Route</label>
+  </div>
+
+      </div>
+                     <div class="row">
+                         <div class="col s12">
+                             <p class="center-align pink-text"><u>Driver Details</u> -Fill driver details here</p>
+                         </div>
+                     </div>
+
+
+                     <div class="row">
+                         <div class="input-field col s12 m6">
+                              {{ form.first_name }}
+                             <label for="id_first_name">First Name</label>
+                         </div>
+                         <div class="input-field col s12 m6">
+                              {{ form.last_name }}
+                             <label for="id_last_name">Last Name</label>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="input-field col s12 m6">
+                              {{ form.id_number }}
+                             <label for="id_id_number">ID NUMBER</label>
+                         </div>
+                         <div class="input-field col s12 m6">
+                              {{ form.phone_number }}
+                             <label for="id_phone_number">PHONE NUMBER</label>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="input-field col s12">
+                              {{ form.email_address }}
+                             <label for="id_email_address">Email Address</label>
+                         </div>
+
+                     </div>
+
+
+
+
+     <div class="row">
+         <div class="input-field col s12 m6 offset-m3">
+             <button type="submit" class="btn btn-block mat360-btn">Register Vehicle</button>
+         </div>
+     </div>
+
+
+    </form>
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+           {% else %}
+           <p class="center-align red-text">You have not registered any routes.Click <a href="">Here</a> to register routes first </p>
+       {% endif %}
+            </div>
+    </div>
+
+           </div>
+           </div>
+    </div>
+</div>
+</div>
+{% endblock %}

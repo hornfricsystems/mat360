@@ -1,0 +1,133 @@
+{% extends 'sacco_manager/sacco_manager_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+              <div class="col s12 m7">
+                  <div class="card">
+                      <div class="card-content">
+                          <p class="center-align purple-text">ALL REGISTERED STAGE CONTROLLER</p>
+                           <table class="highlight responsive-table">
+                                <thead>
+                                  <tr>
+                                       <th>#</th>
+                                      <th>FIRST NAME</th>
+                                       <th>LAST NAME</th>
+                                       <th>PHONE</th>
+                                      <th>STATION</th>
+
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                {% if controllers %}
+                                    {% for controller in controllers %}
+                                        <tr>
+                                           <td>{{ forloop.counter }}</td>
+                                           <td>{{ controller.user.first_name }}</td>
+                                           <td>{{ controller.user.last_name }}</td>
+                                           <td>{{ controller.phone_number }}</td>
+                                           <td>{{ controller.station }}</td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <p class="center-align red-text">There are no registered stage controllers in our database</p>
+                                {% endif %}
+                                </tbody>
+                           </table>
+                      </div>
+                  </div>
+              </div>
+               <div class="col s12 m5">
+       <div class="card">
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title">NEW STAGE CONTROLLER REGISTRATION FORM</span>
+                                <div class="divider"></div></span>
+                 <div class="row">
+                         <div class="col s12">
+                             <p class="center-align pink-text"><u>Stage Controller Details</u> -Fill Controller details here</p>
+                         </div>
+                     </div>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="form">
+                     <form class="col s12" method="post" action="">
+                         {% csrf_token %}
+                         {% if messages %}
+                             {% for message in messages %}
+                                 <p class="center-align green-text">{{ message }}</p>
+                             {% endfor %}
+                         {% endif %}
+      <div class="row">
+          <div class="input-field col s12 m6">
+         {{ form.first_name }}
+          <label for="id_first_name">First Name</label>
+        </div>
+           <div class="input-field col s12 m6">
+          {{ form.last_name }}
+          <label for="id_last_name">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+            {{ form.id_number }}
+          <label for="id_id_number">ID Number</label>
+        </div>
+          <div class="input-field col s12 m6">
+              {{ form.phone_number }}
+             <label for="id_phone_number">Phone Number</label>
+          </div>
+      </div>
+
+                      <div class="row">
+                         <div class="input-field col s12">
+                              {{ form.email }}
+                             <label for="id_email_address">Email Address</label>
+                         </div>
+
+                     </div>
+
+                     <div class="row">
+                         <div class="input-field col s12">
+                              {{ form.station }}
+                             <label for="id_station">Station</label>
+                         </div>
+
+                     </div>
+
+
+
+
+
+
+
+
+
+
+     <div class="row">
+         <div class="input-field col s12 m6 offset-m3">
+             <button type="submit" class="btn btn-block mat360-btn">Register Controller</button>
+         </div>
+     </div>
+
+
+    </form>
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+    </div>
+
+           </div>
+           </div>
+    </div>
+</div>
+</div>
+{% endblock %}

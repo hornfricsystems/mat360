@@ -1,0 +1,81 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+               <div class="col s12 m12">
+       <div class="card">
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title">ALL SACCO APPLICATION REQUESTS</span>
+                                <div class="divider"></div></span>
+                {% if sacco_requests %}
+                      <div class="row">
+                    <div class="col s12 m12 l12">
+                        <!--TABLE-->
+                        <table class="responsive-table striped">
+        <thead>
+          <tr>
+              <th>Manager First Name</th>
+              <th>Manager Last Name Name</th>
+              <th>Manager ID NUMBER</th>
+              <th>Manager Phone Number</th>
+              <th>Manager Email Address</th>
+              <th>Sacco Registration Number</th>
+              <th>Sacco Name</th>
+              <th>Approve</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for sacco in sacco_requests %}
+             <tr>
+              <td>{{ sacco.first_name }}</td>
+              <td>{{ sacco.last_name }}</td>
+              <td>{{ sacco.id_number }}</td>
+              <td>{{ sacco.phone_number }}</td>
+              <td>{{ sacco.email_address }}</td>
+              <td>{{ sacco.sacco_reg_no }}</td>
+             <td>{{ sacco.sacco_name }}</td>
+             <td>
+                 <form method="post" action="">
+                     {% csrf_token %}
+                     <input type="hidden" name="first_name" value="{{ sacco.first_name }}">
+                      <input type="hidden" name="last_name" value="{{ sacco.last_name }}">
+                      <input type="hidden" name="phone" value="{{ sacco.phone_number }}">
+                      <input type="hidden" name="email" value="{{ sacco.email_address }}">
+                      <input type="hidden" name="id_number" value="{{ sacco.id_number }}">
+                      <input type="hidden" name="reg_no" value="{{ sacco.sacco_reg_no }}">
+                      <input type="hidden" name="sacco_name" value="{{ sacco.sacco_name }}">
+                       <button class="btn btn-success" type="submit">Approve</button>
+                 </form>
+
+               </td>
+
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+                        <!--END OF TABLE-->
+                    </div>
+                </div>
+                    {% else %}
+                      <p class="center-align">There are no active sacco applications requests now.</p>
+
+                {% endif %}
+
+
+
+                </div>
+            </div>
+    </div>
+
+           </div>
+           </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'traveller/traveller_base.html' %}
+{% block content %}
+    <div id="main">
+       <div class="container">
+           <div class="row">
+               <div class="col s12">
+                   <div class="card">
+                       <div class="card-content">
+                            <!--This is the Card to help the user keep tarck of the number of people who have booked.-->
+                           <div class="col s12 m4">
+                               <div class="card">
+                                   <div class="card-content">
+                                      <a href="">Book Your Ride</a>
+                                   </div>
+                               </div>
+                           </div>
+                           <!--This is the card to help the use track as people book the ride selected-->
+                           <div class="col s12 m4">
+                               <div class="card">
+                                   <div class="card-content">
+                                       <span class="card-title">Active Ride</span>
+                                   </div>
+                               </div>
+                           </div>
+                            <!--This is the Card to help the user keep tarck of the number of people who have booked.-->
+                           <div class="col s12 m4">
+                               <div class="card">
+                                   <div class="card-content">
+                                       <span class="card-title">Total Transport Expense</span>
+                                       <h6 class="center-align">Ksh.{{t_expense.transaction_amount__sum}}</h6>
+                                   </div>
+                               </div>
+                           </div>
+
+                           <span class="card-title purple-text center-align">HOME</span>
+                           <h6 class="center-align">Welcome <strong class="purple-text">{{ user.first_name }} {{ user.last_name }}</strong></h6>
+                           <p><i class="material-icons left">format_quote</i>
+                               We are glad you are here.We would like to give you the best travel experience using your favorite sacco. You can click on the link below to start enjoying using our service.
+                               It is convenient,Reliable and Secure.
+                           </p>
+                           <p class="center-align"><a class="btn btn-block btn-round btn-purple" href="{% url 'traveller:bookride' %}">Book Ride</a></p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+{% endblock %}

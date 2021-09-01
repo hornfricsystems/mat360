@@ -1,0 +1,44 @@
+.customFooter{
+    background-color: #F2F2F2;
+    color: purple;
+}
+.customFooter li a{
+    color: purple;
+}
+
+
+
+ #main{
+            background-color: #F2F2F2;
+
+            height: 100%;
+        }
+        .nav-wrapper ul li a{
+            color: purple;
+        }
+        .customnav{
+            color:purple;
+            font-size: medium;
+            font-weight: bold;
+        }
+        .customStyle li a{
+            color: purple;
+        }
+        .icon{
+            color: purple;
+        }
+        /*Button Styles
+         */
+ .mat360-btn{
+     border-radius: 30px;
+     background-color: purple;
+     color: white;
+ }
+ .mat360-btn-white-bg{
+     border-radius: 30px;
+     background-color: white;
+     color: purple;
+ }
+ .mat360-btn:hover{
+     background-color: purple;
+ }

@@ -1,0 +1,117 @@
+{% extends 'sacco_manager/sacco_manager_base.html' %}
+{% block content %}
+    <div id="main">
+       <div class="container">
+          <div class="row">
+            <form class="col s12 m8 offset-m2">
+                <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Example KBX001B" id="first_name" type="text" class="validate">
+          <label for="first_name">Vehicle Number</label>
+        </div>
+        <div class="input-field col s6">
+          <button type="submit" class="btn btn-block">Filter Statistics</button>
+        </div>
+      </div>
+
+            </form>
+          </div>
+           <div class="row">
+               <div class="col s12 m3 l3">
+                   <div class="card center-align">
+                       <div class="card-content">
+                          <h3 class="center-align purple-text"><span class="material-icons center-align">
+                                airport_shuttle
+                                </span></h3>
+                                <h6>{{company_summary.all_vehicles}}</h6>
+                           <div class="divider"></div>
+                           <p>Gross Earnings</p>
+                       </div>
+                   </div>
+               </div>
+               <!--Column2-->
+               <div class="col s12 m3 l3">
+                   <div class="card center-align">
+                       <div class="card-content">
+                           <h3 class="center-align purple-text"><span class="material-icons center-align">
+                                edit_road
+                                </span></h3>
+                                <h6>{{company_summary.all_routes}}</h6>
+                           <p>Total Travellers Served</p>
+                       </div>
+                   </div>
+               </div>
+               <!--column3-->
+               <div class="col s12 m3 l3"> 
+                   <div class="card center-align">
+                       <div class="card-content">
+                           <h3 class="center-align purple-text"><span class="material-icons center-align">
+                                people
+                                </span></h3>
+                                <h6>{{customer_count}}</h6>
+                           <p>Total Rides</p>
+                       </div>
+                   </div>
+               </div>
+               <!--Column 4-->
+               <div class="col s12 m3 l3">
+                   <div class="card center-align">
+                       <div class="card-content">
+                           <h3 class="center-align purple-text"><span class="material-icons center-align">
+                                attach_money
+                                </span></h3>
+                                <h6>{{payments.payments_sum.transaction_amount__sum}}</h6>
+                           <p>Net Earnings</p>
+                       </div>
+                   </div>
+               </div>
+               <!--End column 4-->
+
+           </div>
+           <!--This is the Second Row-->
+           <div class="row">
+            <!--This is the First Column-->
+            <div class="card col s12 m12 l12">
+              <!--OverView of the Transactions Details-->
+               <table>
+        <thead>
+          <tr>      
+            <p class="center-align purple-text">Financial Statement</p>
+          </tr>
+          <tr>
+              <th>#</th>
+              <th>Transaction Code</th>
+              <th>Customer Name</th>
+              <th>Transaction Amount</th>
+              <th>Date of Transaction</th>
+              <th>Vehicle</th>
+              <th>Confirmation Code</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for traveller in travellers %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{traveller.transaction_id}}</td>
+            <td>{{traveller.first_name}} {{traveller.middle_name}} {{traveller.last_name}}</td>
+            <td>{{traveller.transaction_amount}}</td>
+            <td>{{traveller.transaction_time|date}}</td>
+            <td>{{traveller.bill_refnumber.v_number}}</td>
+            <td>{{traveller.booking_code}}</td>
+          </tr>
+          {% endfor %}
+        
+        </tbody>
+      </table>
+            
+
+            </div>
+
+
+           </div>
+
+          
+       </div>
+    </div>
+{% endblock %}

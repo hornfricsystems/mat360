@@ -1,0 +1,10 @@
+/*This is the styles for various buttons
+
+ */
+.btn-round{
+    border-radius: 50px;
+}
+.btn-purple{
+    background-color: purple;
+    color: white;
+}

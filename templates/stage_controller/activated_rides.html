@@ -1,0 +1,70 @@
+{% extends 'stage_controller/base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+ <div class="container">
+     <div class="row">
+         <div class="col s12 m12">
+             <p class="center-align"><b><u>STAGE CONTROLLER DASHBOARD</u></b></p>
+         </div>
+     </div>
+
+     <div class="row">
+         <div class="col s12">
+             <div class="card">
+                 <div class="card-content">
+                 <p class="center-align purple-text">ALL ACTIVE RIDES <span class="badge purple">{{ activerides|length }}</span> </p>
+
+                     <table class="highlight responsive-table">
+        <thead>
+          <tr>
+               <th>#</th>
+              <th>V.Number</th>
+               <th>Departure Town</th>
+              <th>Destination Town</th>
+              <th>Driver Name</th>
+              <th>Capacity</th>
+              <th>ACTIVE BOOKINGS</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+         {% if activerides  %}
+
+            {% for ride in activerides  %}
+                 <tr>
+                 <td>{{ forloop.counter }}</td>
+            <td>{{ ride.v_number }}</td>
+                      <td>{{ ride.route.destination }}</td>
+                     <td>{{ ride.route.departure }}</td>
+            <td>{{ ride.driver.user.first_name }} {{ ride.driver.user.last_name }} </td>
+            <td>{{ ride.capacity}} </td>
+                 <td>{{ ride.activeBookings }}</td>
+
+          </tr>
+
+            {% endfor %}
+
+            {% else %}
+            <p class="center-align red-text">There are no available rides</p>
+
+        {% endif %}
+        </tbody>
+      </table>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+  <!--This is the column for tables-->
+ </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

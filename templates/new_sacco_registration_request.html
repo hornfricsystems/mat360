@@ -1,0 +1,95 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+        {% load static %}
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+         <link rel="stylesheet" href="{% static 'assets/css/new-main.css' %}">
+          <link rel="shortcut icon" href="{% static 'assets/media/logo.ico' %}" type="image/x-icon"/>
+
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body class="container" id="main">
+    <div class="row">
+        <form class="card col s12 m8 offset-m2" method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+
+
+            <div class="card-content">
+           <span class="card-title purple-text center-align">NEW SACCO REGISTRATION REQUEST FORM</span>
+                <div class="divider"></div>
+                <p class="center-align pink-text">This is only used by sacco managers with registration certificates</p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="center-align">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                       {{ form.first_name }}
+                        <label for="id_first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                       {{ form.last_name }}
+                        <label for="id_last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                       {{ form.id_number }}
+                        <label for="id_id_number">ID NUMBER</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                         {{ form.email_address }}
+                        <label for="id_email_address">EMAIL ADDRESS</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        {{ form.phone_number }}
+                        <label for="id_phone_number">Phone Number</label>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="input-field col s12 m6">
+                          {{ form.sacco_reg_no }}
+                        <label for="id_sacco_reg_no">Sacco Registration Number</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                       {{ form.sacco_name }}
+                        <label for="id_sacco_name">SACCO NAME</label>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="file-field input-field">
+                      <div class="btn">
+                        <span>License Certificate</span>
+                        <input type="file">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                      </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="input-field col 12 m6 offset-m2">
+                        <button class="btn btn-block mat360-btn" type="submit">Send Us Request</button>
+                    </div>
+                </div>
+
+           </div>
+
+        </form>
+    </div>
+
+
+     <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
+  </html>

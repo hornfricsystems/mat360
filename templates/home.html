@@ -1,0 +1,53 @@
+{% extends 'nav.html' %}
+{% block content %}
+    <!--<div class="row" style="background-color: white">
+        <div class="col s12" style="min-height: 300px;background-color: purple">
+            <h3 class="center-align white-text">The most convenient , safe and efficient public transport application in Kenya.</h3>
+            <h3 class="center-align"><a href="" class="btn mat360-btn-white-bg">Open Traveller Account</a> </h3>
+        </div>
+
+    </div>-->
+    <div class="row">
+      <div class="col s12">
+          <h4 class="center-align">Travelling today?</h4>
+          <h5 class="center-align purple-text">BOOK.PAY.WAIT</h5>
+          <p class="center-align"><b>Our platform gives you the ability to do your own things waiting for an sms notification when the ride is ready to leave.</b></p>
+          <p class="center-align"> <a href="{% url 'home:book-ride' %}" class="btn mat360-btn">BOOK RIDE NOW</a> </p>
+      </div>
+    </div>
+    <div class="row">
+    <!---This is adifferent thing-->
+       <div class="col s12 m12">
+           <h2 class="center-align purple-text">Why Mat360</h2>
+       </div>
+    </div>
+    <div class="row">
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-content">
+            <h1 class="center-align">SIMPLE</h1>
+          <p>Our application was designed with simplicity and user experience forms its pillar. Saccos can request registration to use our service and approval will take less than 7 days.
+          Travellers can open an account and get to use the app in less than 3 minutes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-content">
+            <h1 class="center-align">FAST</h1>
+          <p>Perfomance forms part of this kind of application. The system has been designed to ensure that booking of rides is
+          fast so that our users do not experience delay. SMS noification is also instant so that you become available for your booked ride</p>
+            </div>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-content">
+            <h1 class="center-align">SECURE</h1>
+          <p>Information security is factored in our application. We don't share any information of all the registered saccos and travellers.
+          Your MPESA transactions are also made secure and at no single point will you find that exposed anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

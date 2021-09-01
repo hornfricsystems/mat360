@@ -1,0 +1,96 @@
+{% extends 'traveller/traveller_base.html' %}
+{% block content %}
+<div id="main">
+       <div class="container">
+        <div class="row">
+       <div class="col s12 m8 offset-m2">
+           <div class="card">
+               <div class="card-content">
+                   <div class="row">
+                       <div class="col s12 m12">
+                           <h6 class="center-align green-text"><u>PAY AND GENERATE RECEIPT</u></h6>
+                           <h6 class="center-align red-text">To Pay Your Ride,Follow the Following Instructions</h5>
+                            <ol>
+                              <li>Go to <b>Safaricom</b> SIM Tool Kit</li>
+                              <li>Select <b>MPESA</b> menu</li>
+                              <li>Select <b>Lipa na M-PESA</b></li>
+                              <li>Select <b>Pay Bill</b></li>
+                              <li>select <b>"Enter business number"</b></li>                              
+                              <li>Enter <b>MAT360</b> Business Number <b>600991</b></li>
+                              <li>Select "<b>Account no</b>"</li>
+                              <li>Enter  <b>{{v_number}}</b></li>
+                              <li>Enter  <b>{{amount}}</b> as amount</li>
+                              <li>Enter  <b>YOUR MPESA PIN</b></li>
+
+                            </ol>
+                            <p class="center-align red-text">Upon receiving confirmation message from M-PESA,enter the confirmation code below and  <b class="purple-text">CONFIRM RIDE</b> below </p>
+                       </div>
+                   </div>
+                   <!--ROW2-->
+                   <form method="post" action="">
+                       {% csrf_token %}
+                       {% if messages  %}
+                           {% for message in messages %}
+                               {% if message.tags == 'error' %}
+                                   <p class="red-text">{{ message }}</p>
+                               {% else %}
+                                   <p class="green-text">{{ message }}</p>
+                               {% endif %}
+
+                           {% endfor %}
+                       {% endif %}
+                            <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6 offset-m3">
+                         <input type="number" placeholder="Enter Booking Confirmation Code" class="validate"  required  name="c_code">
+                       </div>                      
+                   </div>
+                       <!--ROW4-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="SACCO NAME" value="{{ sacco_name }}"  class="validate" required id="saccoName" name="saccoName">
+                       </div>
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="Customer Name" value="{{ request.user.first_name }} {{ request.user.last_name }}" class="validate" required id="customer_name" name="activeFare">
+                       </div>
+                   </div>
+                    <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="VEHICLE" class="validate"  value="{{ v_number }}" required id="vehicle"  name="vehicleNumber">
+                       </div>
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="AMOUNT" value="{{ amount }}" class="validate"  required id="amount"  name="amount">
+                       </div>
+                   </div>
+                       <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="Departure" class="validate"  value="{{ departure }}" required id="vehicle"  name="vehicleNumber">
+                       </div>
+                       <div class="input-field col s12 m6">
+                           <input type="hidden" placeholder="Destination" value="{{ destination }}" class="validate"  required id="amount"  name="amount">
+                       </div>
+                   </div>
+                
+                    <!--ROW5-->
+                   <div class="row">
+                       <div class="input-field col s12 m6 offset-m3">
+                           <button type="submit" class="btn btn-block mat360-btn">CONFIRM RIDE</button>
+                       </div>
+
+                   </div>
+
+                       </form>
+
+               </div>
+           </div>
+       </div>
+    </div>
+       <!--At Home Page End-->
+       </div>
+</div>
+
+
+    <!--JAVASCRIPT-->
+{% endblock %}
