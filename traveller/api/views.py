@@ -7,10 +7,12 @@ from traveller.api.serializers import TravellerRegistrationSerializer
 def travellerRegistrationView(request):
     if request.method == 'POST':
         serializer=TravellerRegistrationSerializer(required=False,data=request.data)
-        data={}
+        data=""
         if serializer.is_valid():
             account=serializer.save()
-            data['response']='Successfully registered a new Traveller'
+            data='You have Successfully registered as a new Traveller'
         else:
-            data=serializer.errors
+            response=serializer.errors
+            data=response['username'][0]
+
         return Response(data)
