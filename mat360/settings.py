@@ -31,7 +31,7 @@ SECRET_KEY = env('APP_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','65e4-102-166-44-63.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','mat360v1.pythonanywhere.com']
 
 
 # Application definition
@@ -114,10 +114,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'mat360$db_mat360',
-            'USER': 'mat360',
-            'PASSWORD': '$_dbmat360@mat360',
-            'HOST': 'mat360.mysql.pythonanywhere-services.com',
+            'NAME': 'mat360v1$default',
+            'USER': 'mat360v1',
+            'PASSWORD': '@Hornfricsystems_db@',
+            'HOST': 'mat360v1.mysql.pythonanywhere-services.com',
 
         }
     }
@@ -180,7 +180,6 @@ AFRICAS_TALKING_API_KEY=env('AFRICAS_TALKING_API_KEY')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),]
+STATIC_ROOT =os.path.join(BASE_DIR, "static")
 
 STATIC_URL = '/static/'

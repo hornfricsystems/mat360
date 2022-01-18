@@ -163,8 +163,8 @@ def register_urls(request):
     options={
         "ShortCode":"600980",
         "ResponseType":"Completed",        
-        "ConfirmationURL":"https://65e4-102-166-44-63.ngrok.io/admin/c2b/confirmation",
-        "ValidationURL":"https://65e4-102-166-44-63.ngrok.io/admin/c2b/validation",
+        "ConfirmationURL":"https://mat360v1.pythonanywhere.com/admin/c2b/confirmation",
+        "ValidationURL":"https://mat360v1.pythonanywhere.com/admin/c2b/validation",
     }
     response=requests.post(api_URL,json=options,headers=headers)
     return HttpResponse(response.text)

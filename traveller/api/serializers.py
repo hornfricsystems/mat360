@@ -20,7 +20,7 @@ class TravellerRegistrationSerializer(serializers.ModelSerializer):
         )
         password=self.validated_data['password']
         password2=self.validated_data['password2']
-        if password != password2:
-            raise serializers.ValidationError({'password':'Password do not match'})
+        #if password != password2:
+            #raise serializers.ValidationError('Password do not match'[0])
         traveller.set_password(password)
         traveller.save()
