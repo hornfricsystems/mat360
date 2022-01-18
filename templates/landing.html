@@ -1,0 +1,114 @@
+{% extends 'navigation.html' %}
+{% block content %}
+      <!-- Jumbotron -->
+  <div class="p-5 text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Incoming Row-->
+                <div class="row">
+                    <h3 class="mb-3"><strong class="mat">MAT</strong><span class="m-360">360</span> | <span class="m-text">We Focus on making your Ride Comfortable,Safe and Secure on your favorite Sacco.</span></h3>
+                    <p class="mb-3">As a traveller we know you need time to focus on other important things. As a Sacco we know you need a better financial, fleet and customer management tool. We are giving you that and thus allow us to do the management for you.</p class="mb-3">
+
+                </div>
+                <!--Division Row-->
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 offset-md-2">
+                        <p>Travelling Today?</p>
+                        <a class="btn btn-primary mat360-btn" href="{% url 'home:book-ride' %}" role="button">Book Ride Now</a>
+                    </div>
+                     <div class="col-sm-12 col-md-4">
+                       <p class="center-align">New Sacco </p>
+                         <a class="btn btn-primary mat360-btn" href="{% url 'home:saccos' %}" role="button">Request Sacco Registration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  </div>
+  <!-- Jumbotron -->
+    <!--Why use MAT360-->
+
+<div class="row">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#01B4EE" fill-opacity="0.4" d="M0,256L34.3,245.3C68.6,235,137,213,206,181.3C274.3,149,343,107,411,74.7C480,43,549,21,617,58.7C685.7,96,754,192,823,240C891.4,288,960,288,1029,240C1097.1,192,1166,96,1234,48C1302.9,0,1371,0,1406,0L1440,0L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
+ <div class="col-md-12">
+     <!--Why us-Topic-->
+     <div class="row">
+         <div class="col-md-12">
+             <h3 class="text-center"><u>Why <strong class="mat">MAT</strong><span class="m-360">360</span> </u></h3>
+
+         </div>
+     </div>
+      <!--Why us-Topic-->
+     <div class="row">
+         <div class="col-md-4">
+            <div class="card">
+                <div class="card-header mat360-title"><strong>Convenience and Efficiency</strong></div>
+              <div class="card-body">
+                <p class="card-text">
+                    <ul style="list-style: square">
+                    <li>Easy Booking</li>
+                    <p>You can book anywhere, anytime using any device that accesses internet.</p>
+                    <li>Seamless Payment with instant Confirmation</li>
+                    <p>The fare payment is seamless with instant confirmation of ride to facilitate travel schedule.</p>
+                    <li>Instant SMS Notifications</li>
+                    <p>To ensure you don't miss your ride we instantly notify you via SMS when the ride booked is full.</p>
+                     <li>Better Fleet Management Tool</li>
+                    <p>The application enables Sacco Manager to perform registration of new Vehicles and their respective drivers,register stage controllers.</p>
+
+
+              </ul>
+
+                </p>
+              </div>
+            </div>
+         </div>
+          <div class="col-md-4">
+             <div class="card">
+                  <div class="card-header mat360-title"><strong>Security</strong></div>
+                  <div class="card-body">
+                    <p class="card-text">
+                     <ul style="list-style: square">
+                    <li>Easy Booking</li>
+                    <p>You can book anywhere, anytime using any device that accesses internet.</p>
+                    <li>Seamless Payment with instant Confirmation</li>
+                    <p>The fare payment is seamless with instant confirmation of ride to facilitate travel schedule.</p>
+                    <li>Instant SMS Notifications</li>
+                    <p>To ensure you don't miss your ride we instantly notify you via SMS when the ride booked is full.</p>
+                     <li>Better Fleet Management Tool</li>
+                    <p>The application enables Sacco Manager to perform registration of new Vehicles and their respective drivers,register stage controllers.</p>
+
+
+              </ul>
+                    </p>
+
+                  </div>
+             </div>
+         </div>
+          <div class="col-md-4">
+             <div class="card">
+                 <div class="card-header mat360-title"><strong>Better Fleet,Financial and Customer Management</strong></div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      <ul style="list-style: square">
+                    <li>Easy Booking</li>
+                    <p>You can book anywhere, anytime using any device that accesses internet.</p>
+                    <li>Seamless Payment with instant Confirmation</li>
+                    <p>The fare payment is seamless with instant confirmation of ride to facilitate travel schedule.</p>
+                    <li>Instant SMS Notifications</li>
+                    <p>To ensure you don't miss your ride we instantly notify you via SMS when the ride booked is full.</p>
+                     <li>Better Fleet Management Tool</li>
+                    <p>The application enables Sacco Manager to perform registration of new Vehicles and their respective drivers,register stage controllers.</p>
+
+              </ul>
+                    </p>
+
+                  </div>
+                </div>
+         </div>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#01B4EE" fill-opacity="0.4" d="M0,256L34.3,245.3C68.6,235,137,213,206,181.3C274.3,149,343,107,411,74.7C480,43,549,21,617,58.7C685.7,96,754,192,823,240C891.4,288,960,288,1029,240C1097.1,192,1166,96,1234,48C1302.9,0,1371,0,1406,0L1440,0L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+
+     </div>
+ </div>
+</div>
+{% endblock %}

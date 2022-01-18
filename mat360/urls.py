@@ -25,4 +25,7 @@ urlpatterns = [
     path('stageController/', include('stagecontroller.urls')),
     path('traveller/',include('traveller.urls')),
     path('driver/',include('driver.urls')),
+
+    #api urls
+    path('traveller/api/v1/',include('traveller.api.urls')),
 ]

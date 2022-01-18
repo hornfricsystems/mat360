@@ -14,5 +14,6 @@ urlpatterns=[
     path('c2b/simulate',views.simulatec2b,name='simulate'),
     path('c2b/lipanampesa',views.lipaNaMpesaOnline,name='lipanampesa'),
     path('admin/accounts/sacco_requests_applications/',views.view_sacco_requests_applications_and_approve,name='admin-sacco-application-requests'),
+    path('admin/accounts/approved_applications/',views.ApprovedSaccoRequests.as_view(),name='approved_sacco_requests'),
 
 ]

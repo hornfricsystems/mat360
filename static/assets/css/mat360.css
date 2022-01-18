@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
+:root{
+    background: #FBFBFB;
+    font-family: 'The Nautigal', cursive !important;
+}
+body{
+
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.navbar-light{
+    background: #01B4EE !important;
+}
+.nav-link,.dropdown-item,.mat360-universe,.text-reset{
+    color: white !important;
+}
+.mat360-title{
+    color:#0196CE ;
+}
+.mat360-dropdown{
+    background: #01B4EE !important;
+}
+.mat360-dropdown li a:hover{
+    background: #0196CE !important;
+}
+.mat{
+    color: #01B4EE;
+    font-size: larger;
+}
+.m-360{
+ color: #EAAC3D;
+}
+.m-text{
+    font-size: large;
+}
+.mat360-btn{
+    border-radius: 25px;
+    background: #01B4EE;
+}
+
+
+.bg-light{
+    background:#0196CE !important;
+}
+u {
+  padding-bottom:10px;
+  text-decoration:none;
+  border-bottom:3px solid #000;
+}

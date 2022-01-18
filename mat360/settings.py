@@ -31,7 +31,7 @@ SECRET_KEY = env('APP_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','f3a8-197-156-137-130.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','65e4-102-166-44-63.ngrok.io']
 
 
 # Application definition
@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'traveller.apps.TravellerConfig',
     'eparcel.apps.EparcelConfig',
    'django_seed',
+
+    #External packages
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

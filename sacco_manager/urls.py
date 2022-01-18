@@ -12,7 +12,11 @@ urlpatterns=[
     path('accounts/our_settings', views.sacco_settings, name="sacco-settings"),
     path('accounts/vehicle_statistics',views.vehicle_statistics,name='vehicle_stats'),
     #path('accounts/route-management/',views.route_management_home,name='route_management'),
+    #Company Finances
+    path('accounts/sacco_finances/',views.SaccoFinancesPage.as_view(),name='sacco-finances'),
+    path('accounts/sacco_finances/current_balance_distribution',views.CurrentBalanceDistribution.as_view(),name='sacco-current-balance'),
     path('accounts/route-management/register_route', views.register_vehicle_route, name='register_route'),
-
+    #Ajax Based Functons
+    path('accounts/ajax/VehicleStats/',views.getVehicleStatistics,name='ajax-vehicle-stats'),
     path('',views.logout_view,name='logout'),
 ]

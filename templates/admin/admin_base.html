@@ -71,9 +71,8 @@
          </li>
           <li class="navigation-header"><a class="navigation-header-text">Sacco Managers</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
-         <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">New</span></a></li>
          <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'mat360admin:admin-sacco-application-requests' %}"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">New Applications</span></a></li>
-         <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">View All</span></a></li>
+         <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'mat360admin:approved_sacco_requests' %}"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">View All</span></a></li>
         <li class="navigation-header"><a class="navigation-header-text">MPESA API</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
          <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'mat360admin:register_mpesa_validation' %}"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">Register URLS</span></a></li>

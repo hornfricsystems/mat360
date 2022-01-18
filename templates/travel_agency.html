@@ -1,0 +1,28 @@
+{% extends 'navigation.html' %}
+{% block content %}
+
+<div class="row">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#01B4EE" fill-opacity="0.4" d="M0,256L34.3,245.3C68.6,235,137,213,206,181.3C274.3,149,343,107,411,74.7C480,43,549,21,617,58.7C685.7,96,754,192,823,240C891.4,288,960,288,1029,240C1097.1,192,1166,96,1234,48C1302.9,0,1371,0,1406,0L1440,0L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
+
+    <div class="col-md-8 offset-md-2">
+        <h1>Travel Agency Requirements</h1>
+        <p>Our platform works to ensure that you get the best out of our customers. We are therefore working to ensure that you get the
+             best out of the large number of customers who would wish to travel at their time of convenience. A sacco using our application
+             will have so many advantages which makes you eligible to register to use the service.</p>
+         <p>The following are the requirements to be able to get your sacco approved on our platform.</p>
+             <ul style="list-style: square">
+                 <li>Valid Sacco Registration Certificate</li>
+                 <li>Operational paybill number</li>
+                 <li>Dedicated stage in every town that the sacco operates.</li>
+                 <li>The Sacco should operate on long distance routes</li>
+             </ul>
+        <p>Our application is entirely on cashless payments and is the main reason why we need saccos with operational paybill numbers.
+                 We are trying to ensure that you get the best and your customers also get the best out of our platform.
+             </p>
+        <p>Do you have all the requirements as a sacco and would wish to enjoy the platform?</p>
+        <p><button class="btn  mat360-btn"><a  href="{% url 'sacco_manager:request-sacco-registration' %}" class="mat360-universe">Request Sacco Registration</a></button>  </p>
+
+    </div>
+</div>
+
+{% endblock %}

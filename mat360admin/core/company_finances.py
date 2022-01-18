@@ -30,6 +30,9 @@ class CompanyFinancesController:
 		financialcustomer_summary['payments_sum']=get_all_vehicle_payments
 		financialcustomer_summary['customers']=customer_count
 		return financialcustomer_summary
+	#This is the function to get total number of rides
+
+
 
 
 		

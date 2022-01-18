@@ -5,20 +5,29 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.views.generic.base import TemplateView
 
 from mat360.settings import EMAIL_HOST_USER
+from mat360admin.core.decorators import  saccoManagerRequired
 from mat360admin.models import Mat360SystemUsers
 from mat360admin.core.company_finances import CompanyFinancesController
+from sacco_manager.algorithms.tokens import account_activation_token
 from sacco_manager.forms import SaccoRequestRegistrationForm, VehicleRegistrationForm, StageControllerRegistrationForm
 from sacco_manager.models import Sacco, Driver, Vehicle, StageController, Route
 
 from sacco_manager.algorithms.algo import FilterClass
+from sacco_manager.algorithms.vehiclestatistics import VehicleStatistics
 
-
+decorators=[saccoManagerRequired,login_required(login_url='admin:admin-login')]
 #This is a function to save sacco registration requests and send an email to the administrator.
 def save_sacco_registration_requests(request):
     if request.method == 'POST':
@@ -38,6 +47,7 @@ def save_sacco_registration_requests(request):
     return render(request,'new_sacco_registration_request.html',{'form':form})
 
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def sacco_manager_dashboard(request):
     cfO=CompanyFinancesController(request.user.sacco_manager.sacco.sacco_reg_no)
     total_vehicles=cfO.getSaccoSummaryData()
@@ -51,13 +61,15 @@ def sacco_manager_dashboard(request):
     }
     return render(request,'sacco_manager/index.html',context)
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def vehicle_statistics(request):
+
     cfO=CompanyFinancesController(request.user.sacco_manager.sacco.sacco_reg_no)
     total_vehicles=cfO.getSaccoSummaryData()
     financialcustomer_summary=cfO.getSaccoTotalFinacialandCustomerSummary()
     context={
     'company_summary':total_vehicles,
-    'payments':financialcustomer_summary,
+    'payments':0,
     'customer_count':len(financialcustomer_summary['customers']),
     'travellers':financialcustomer_summary['customers'],
 
@@ -65,6 +77,7 @@ def vehicle_statistics(request):
     return render(request,'sacco_manager/vehicle_stats.html',context)
 #This is used to save details of a new vehicle for the specific sacco into the database.
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def new_vehicle_registration(request):
     sacco_pk = Sacco.objects.get(pk=request.user.sacco_manager.sacco.sacco_reg_no)
     all_routes = sacco_pk.route_set.all()
@@ -109,10 +122,12 @@ def new_vehicle_registration(request):
 
 #Return all fleet of a sacco
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def get_fleet(request):
     vehicles=Vehicle.objects.filter(sacco=request.user.sacco_manager.sacco.sacco_reg_no).select_related('driver').select_related('route')
     return render(request,'sacco_manager/our_fleet.html',{'vehicles':vehicles})
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def register_stage_controller(request):
     #Get all registered stage controllers;
     sacco_r = Sacco.objects.get(pk=request.user.sacco_manager.sacco.sacco_reg_no)
@@ -140,10 +155,21 @@ def register_stage_controller(request):
             stagec.phone_number=form.cleaned_data['phone_number']
             stagec.station = form.cleaned_data['station']
             stagec.save()
+            #Email confirmation link
+            current_site=get_current_site(request)
+            mail_subject="Please Activate your Account"
+            message_mail=render_to_string('sacco_manager/account_activation.html',{
+                'user':user,
+                'domain':current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token,
+            })
+
             subject = "STAGE CONTROLLER REGISTRATION"
             message="Dear "+form.cleaned_data['first_name']+ " "+ form.cleaned_data['last_name'] +",you have been registered as  "+sacco_r.sacco_name.upper()+" Stage Controller managing "+form.cleaned_data['station'].upper()+" Sation.Your Login Credentials are shown below \n Username:\t"+form.cleaned_data['phone_number']+"\n Password:\t"+form.cleaned_data['id_number']
             recipient = form.cleaned_data['email']
             send_mail(subject, message, EMAIL_HOST_USER, [recipient], fail_silently=True)
+            send_mail(mail_subject, message_mail, EMAIL_HOST_USER, [recipient], fail_silently=True)
 
             messages.success(request,'Stage Controller has been registered successfully and email confirmation send with log in details')
             form=StageControllerRegistrationForm()
@@ -159,6 +185,7 @@ def register_stage_controller(request):
 
 #Final function to register route
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def register_vehicle_route(request):
     saccoInstance = Sacco.objects.get(pk=request.user.sacco_manager.sacco.sacco_reg_no)
     all_routes = saccoInstance.route_set.all()
@@ -192,6 +219,7 @@ def register_vehicle_route(request):
 
     return render(request, 'sacco_manager/routes.html', {'all_routes': all_routes})
 @login_required(login_url='admin:admin-login')
+@saccoManagerRequired
 def sacco_settings(request):
     return render(request,'sacco_manager/sacco_settings.html')
 
@@ -203,6 +231,53 @@ def sacco_settings(request):
 def logout_view(request):
     logout(request)
     return redirect('mat360admin:admin-login')
+@method_decorator(decorators,name='dispatch')
+class SaccoFinancesPage(TemplateView):
+    template_name='sacco_manager/sacco_finances.html'
+    def get_context_data(self, **kwargs):
+        context=super(SaccoFinancesPage,self).get_context_data(**kwargs)
+        cFinance = CompanyFinancesController(self.request.user.sacco_manager.sacco.sacco_reg_no)
+        finance_distribution={}
+        finance_distribution['total_amount']=cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum']['transaction_amount__sum']
+        finance_distribution['sacco_finances']=cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum']['transaction_amount__sum']*10/100
+        finance_distribution['owner_finances']=cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum']['transaction_amount__sum']*90/100
+
+        context['finance_summary']=finance_distribution
+        return context
+
+@method_decorator(decorators,name='dispatch')
+class CurrentBalanceDistribution(TemplateView):
+    template_name='sacco_manager/current_balance_distribution.html'
+    def get_context_data(self, **kwargs):
+        context=super(CurrentBalanceDistribution, self).get_context_data(**kwargs)
+        cFinance = CompanyFinancesController(self.request.user.sacco_manager.sacco.sacco_reg_no)
+        finance_distribution = {}
+        finance_distribution['total_amount'] = cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum'][
+            'transaction_amount__sum']
+        finance_distribution['sacco_finances'] = cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum'][
+                                                     'transaction_amount__sum'] * 10 / 100
+        finance_distribution['owner_finances'] = cFinance.getSaccoTotalFinacialandCustomerSummary()['payments_sum'][
+                                                     'transaction_amount__sum'] * 90 / 100
+        all_rides=cFinance.getSaccoTotalFinacialandCustomerSummary()['customers']
+
+        context['finance_summary'] = finance_distribution
+        context['vehicle_individual_contributions']=all_rides
+        return context
+
+'''
+AJAX BASED FUNCTIONS
+'''
+@saccoManagerRequired
+@login_required(login_url='admin:admin-login')
+def getVehicleStatistics(request):
+    vehicleNumber = request.GET.get('vNumber', None)
+    #Create Object
+    vStats=VehicleStatistics("KBA001A")
+    gross_earnings=vStats.getGrossEarnings()
+    result_set=[]
+    result_set.append({"vNumber":gross_earnings})
+    return HttpResponse(json.dumps(result_set), content_type='application/json')
+
 
 
 

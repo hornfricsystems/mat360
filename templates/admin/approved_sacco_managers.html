@@ -1,0 +1,64 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+               <div class="col s12 m12">
+       <div class="card">
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title">ALL APPROVED SACCO APPLICATIONS</span>
+                                <div class="divider"></div></span>
+                {% if object_list %}
+                      <div class="row">
+                    <div class="col s12 m12 l12">
+                        <!--TABLE-->
+                        <table class="responsive-table striped">
+        <thead>
+          <tr>
+              <th>Manager First Name</th>
+              <th>Manager Last Name Name</th>
+              <th>Manager ID NUMBER</th>
+              <th>Manager Phone Number</th>
+              <th>Manager Email Address</th>
+              <th>Sacco Registration Number</th>
+              <th>Sacco Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for object in object_list %}
+             <tr>
+              <td>{{ object.first_name }}</td>
+              <td>{{ object.last_name }}</td>
+              <td>{{ object.id_number }}</td>
+              <td>{{ object.phone_number }}</td>
+              <td>{{ object.email_address }}</td>
+              <td>{{ object.sacco_reg_no }}</td>
+             <td>{{ object.sacco_name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+                        <!--END OF TABLE-->
+                    </div>
+                </div>
+                    {% else %}
+                      <p class="center-align">There are no active sacco applications requests now.</p>
+
+                {% endif %}
+
+
+
+                </div>
+            </div>
+    </div>
+
+           </div>
+           </div>
+    </div>
+</div>
+</div>
+{% endblock %}

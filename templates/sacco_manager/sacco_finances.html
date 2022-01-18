@@ -1,0 +1,52 @@
+{% extends 'sacco_manager/sacco_manager_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+  <div class="row">
+      <div class="col  s12 center-align"><h4 class="purple-text"><u>Company Finances OverView</u></h4></div>
+  </div>
+ <!--This is the Second Row-->
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content center-align">
+                <h4>{{ finance_summary.total_amount }}</h4>
+                <p>Total Amount Collected</p>
+            </div>
+        </div>
+    </div>
+    <!--This is the Second Column-->
+     <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content center-align">
+                <h4>{{ finance_summary.sacco_finances }}</h4>
+                <p>Sacco Collections</p>
+            </div>
+        </div>
+    </div>
+    <!--This is the Third and Final Column-->
+     <div class="col s12 m4">
+        <div class="card purple white-text">
+            <a href="{% url 'sacco_manager:sacco-current-balance' %}">
+            <div class="card-content center-align">
+                <h4 class="white-text">{{ finance_summary.owner_finances }}</h4>
+                <p>Available Balance</p>
+            </div>
+                </a>
+        </div>
+    </div>
+    <!--End of Columns-->
+</div>
+<!--The Third Row-->
+<div class="row">
+    <div class="col s12">
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn mat360-btn">WithDraw To Sacco Account</button>
+        </form>
+
+        <p>This will contain a table of all the transactions being paid out.</p>
+    </div>
+</div>
+</div>
+{% endblock %}

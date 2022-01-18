@@ -1,0 +1,76 @@
+{% extends 'sacco_manager/sacco_manager_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+  <div class="row">
+      <div class="col  s12 center-align"><h4 class="purple-text"><u>Current Finance Balance</u></h4></div>
+  </div>
+ <!--This is the Second Row-->
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content center-align">
+                <h4>{{ finance_summary.total_amount }}</h4>
+                <p>Grand Amount Collected</p>
+            </div>
+        </div>
+    </div>
+    <!--This is the Second Column-->
+     <div class="col s12 m4">
+        <div class="card">
+            <div class="card-content center-align">
+                <h4>{{ finance_summary.sacco_finances}}</h4>
+                <p>Sacco Collections</p>
+            </div>
+        </div>
+    </div>
+    <!--This is the Third and Final Column-->
+     <div class="col s12 m4">
+        <div class="card purple white-text">
+            <div class="card-content center-align">
+                <h4 class="white-text">{{ finance_summary.owner_finances }}</h4>
+                <p>Owner Amount</p>
+            </div>
+        </div>
+    </div>
+    <!--End of Columns-->
+</div>
+<!--The Third Row-->
+<div class="row">
+    <div class="col s12">
+            <table>
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Vehicle Number</th>
+              <th>Number of Trips</th>
+              <th>Total Amount</th>
+              <th>Sacco Deductions</th>
+              <th>Net Amount</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for ride in vehicle_individual_contributions  %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ ride.bill_refnumber.v_number }}</td>
+            <td>{{ ride.bill_refnumber.capacity }}</td>
+            <td>{{ ride.bill_refnumber.capacity }}</td>
+            <td>{{ ride.transaction_amount }}</td>
+            <td>{{ ride.transaction_amount }}</td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+</div>
+<!--This is the Fourth Row-->
+<div class="row">
+    <div class="col s12 m6 right">
+        <button class="btn btn-block mat360-btn">Process Bulk Owner Payments</button>
+    </div>
+</div>
+</div>
+{% endblock %}

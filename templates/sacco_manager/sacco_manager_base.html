@@ -55,7 +55,9 @@
 
             <ul class="dropdown-content" id="profile-dropdown">
                 <li><a class="grey-text text-darken-1" href=""><i class="material-icons">person_outline</i> Profile</a></li>
-                  <li><a class="grey-text text-darken-1" href="{% url 'sacco_manager:sacco-settings' %}"><i class="material-icons">engineering_outline</i> Settings</a></li>
+                <li><a class="grey-text text-darken-1" href="{% url 'sacco_manager:sacco-settings' %}"><i class="material-icons">engineering_outline</i> Settings</a></li>
+                <li><a class="grey-text text-darken-1" href="{% url 'sacco_manager:sacco-finances' %}"><i class="material-icons">money</i> Finances</a></li>
+
                 <li class="divider"></li>
                 <li><a class="grey-text text-darken-1" href="{% url 'sacco_manager:logout' %}"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
@@ -87,8 +89,7 @@
            <li class="navigation-header"><a class="navigation-header-text">SACCO ROUTES</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
          <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'sacco_manager:vehicle_stats' %}"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">Vehicle Statistics</span></a></li>
-         <li class="bold"><a class="waves-effect waves-cyan " href=""><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">Monthly Financial Report</span></a></li>
-         <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">Complains</span></a></li>
+
 
         
       </ul>

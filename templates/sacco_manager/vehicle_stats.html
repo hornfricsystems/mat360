@@ -3,14 +3,15 @@
     <div id="main">
        <div class="container">
           <div class="row">
-            <form class="col s12 m8 offset-m2">
+            <form class="col s12 m8 offset-m2" method="post" action="">
+                {% csrf_token %}
                 <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Example KBX001B" id="first_name" type="text" class="validate">
+          <input placeholder="Example KBX001B" id="v_number" type="text" class="validate">
           <label for="first_name">Vehicle Number</label>
         </div>
         <div class="input-field col s6">
-          <button type="submit" class="btn btn-block">Filter Statistics</button>
+          <button type="submit" class="btn btn-block mat360-btn" id="filter-btn">Filter Statistics</button>
         </div>
       </div>
 
@@ -60,7 +61,7 @@
                            <h3 class="center-align purple-text"><span class="material-icons center-align">
                                 attach_money
                                 </span></h3>
-                                <h6>{{payments.payments_sum.transaction_amount__sum}}</h6>
+                                <h6>{{payments}}</h6>
                            <p>Net Earnings</p>
                        </div>
                    </div>
@@ -114,4 +115,28 @@
           
        </div>
     </div>
+    {% block javascript %}
+        <script>
+          $(document).ready(function(){
+              $("#filter-btn").click(function(){
+                  var vNumber=$('#v_number').val();
+               $.ajax({
+                   url:"{% url 'sacco_manager:ajax-vehicle-stats' %}",
+                   data:{'vNumber':vNumber},
+                   dataType:'json',
+                  success:function (result){
+                       alert(result[0].vNumber)
+
+                  },
+                   error:function (ts){
+                       alert(ts.responseText)
+                   }
+
+               })
+              });
+          });
+
+        </script>
+
+    {% endblock %}
 {% endblock %}

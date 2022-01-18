@@ -24,16 +24,16 @@ validI=ValidationCheck()
 
 
 class Index(TemplateView):
-    template_name = 'index.html'
+    template_name = 'landing.html'
 class Saccos(TemplateView):
-    template_name = 'saccos.html'
+    template_name = 'travel_agency.html'
 def book_ride(request):
     if request.method=='POST':
         request.session['vehicle_id']=request.POST['rideNumber']
         request.session['departure']=request.POST['departure']
         request.session['destination'] = request.POST['destination']
         return redirect('home:signin')
-    return render(request,'book_ride.html',{'stations':validI.getallroutes()})
+    return render(request,'book-ride.html',{'stations':validI.getallroutes()})
 def process_login(request):
     return render(request,'signin.html')
 def create_account(request):

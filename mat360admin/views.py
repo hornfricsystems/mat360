@@ -11,12 +11,14 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 from mat360.settings import EMAIL_HOST_USER
+from mat360admin.core.decorators import user_is_administrator
 from mat360admin.models import Mat360SystemUsers, Payments
 from sacco_manager.models import SaccoRegistrationRequests, SaccoManager, Sacco,Vehicle,VehicleBookings,VehicleStatus
 from mat360admin.core.payments import MpesaClient,Mat360FinancialAnalysis
@@ -53,8 +55,8 @@ def log_admin_in(request):
 
 
         else:
-            messages.error(request, "Wrong Username or Passwords")
-    return render(request, 'admin-in.html')
+            messages.error(request, "Wrong username or password combination")
+    return render(request, 'admin-login.html')
 
 
 @login_required(login_url='/admin')
@@ -63,6 +65,7 @@ def load_admin_dash(request):
 
 
 @login_required(login_url='/admin')
+@user_is_administrator
 def view_sacco_requests_applications_and_approve(request):
     sacco_requests = SaccoRegistrationRequests.objects.all().filter(application_status='in_progress')
     if request.method == 'POST':
@@ -141,6 +144,15 @@ def create_system_admin(request):
     print('Successfully create')
     return render(request, 'home.html')
 
+@method_decorator(user_is_administrator,name='dispatch')
+class ApprovedSaccoRequests(ListView):
+    model =SaccoRegistrationRequests
+    template_name = 'admin/approved_sacco_managers.html'
+
+    def get_context_data(self, **kwargs):
+        context=super(ApprovedSaccoRequests, self).get_context_data(**kwargs)
+        context['approved']=SaccoRegistrationRequests.objects.filter(application_status='approved')
+        return context
 '''
 These are admin and mpesa related views
 '''
@@ -149,10 +161,10 @@ def register_urls(request):
     api_URL="https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers= headers = {"Authorization": "Bearer %s" % client.generateMpesaAccessToken()}
     options={
-        "ShortCode":"600983",
+        "ShortCode":"600980",
         "ResponseType":"Completed",        
-        "ConfirmationURL":"https://hornfricsystems.pythonanywhere.com/admin/c2b/confirmation",
-        "ValidationURL":"https://hornfricsystems.pythonanywhere.com/admin/c2b/validation",
+        "ConfirmationURL":"https://65e4-102-166-44-63.ngrok.io/admin/c2b/confirmation",
+        "ValidationURL":"https://65e4-102-166-44-63.ngrok.io/admin/c2b/validation",
     }
     response=requests.post(api_URL,json=options,headers=headers)
     return HttpResponse(response.text)
@@ -167,12 +179,11 @@ def validation(request):
     
 #This is function to  handle the response from Mpesa.
 @csrf_exempt
-def confirmation(request):  
-    mpesa_body=request.body.decode('utf-8')
+def confirmation(request):
+    print("The confirmation has been hit")
+    mpesa_body=request.body
     mpesa_payment_response=json.loads(mpesa_body)
-    print(mpesa_payment_response)
     confirmation_code=random.randint(1000,9999)
-
     #Get all to variables
     transType=mpesa_payment_response['TransactionType']
     transID = mpesa_payment_response['TransID']
@@ -218,10 +229,10 @@ def simulatec2b(request):
     headers = {"Authorization": "Bearer %s" % client.generateMpesaAccessToken()}
     options={
         "CommandID":"CustomerPayBillOnline",
-        "Amount":300,
+        "Amount":400,
         "Msisdn":254708374149,
-        "BillRefNumber":"KCA001",
-        "ShortCode":"600426",
+        "BillRefNumber":"KCA001A",
+        "ShortCode":"600987",
     }
     response=requests.post(api_URL,json=options,headers=headers)
     data_to_display=response.json().get('ResponseCode')
@@ -252,6 +263,7 @@ def lipaNaMpesaOnline(request):
     
 
 #Get all transactions
+@user_is_administrator
 def getFareTransactions(request):
     transactions=financialAnalysis.getAllFinances()
     return render(request,"admin/payments.html",{'transactions':transactions})
